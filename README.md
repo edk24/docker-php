@@ -18,6 +18,12 @@
 - php.ini: /usr/local/etc/php/php.ini
 - php-fpm.conf: /usr/local/etc/php-fpm.d/zz-docker.conf
 
+## 直接使用已构建好的镜像
+
+```bash
+docker pull edk24/docker-php
+```
+
 ## 构建镜像
 
 ```bash
