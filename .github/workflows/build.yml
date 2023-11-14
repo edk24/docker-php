@@ -32,6 +32,9 @@ jobs:
         name: Generate App Version
         run: echo APP_VERSION=`git describe --tags --always` >> $GITHUB_ENV
       -
+        name: Build Target
+        run: cd ${{ env.APP_VERSION }}
+      -
         name: Build and push
         uses: docker/build-push-action@v2
         with:
@@ -45,5 +48,4 @@ jobs:
           build-args: |
             ENVIRONMENT=${{ env.ENVIRONMENT }}
           tags: |
-            ${{ env.DOCKERHUB_REPO }}:latest
             ${{ env.DOCKERHUB_REPO }}:${{ env.APP_VERSION }}
