@@ -27,7 +27,11 @@ docker pull edk24/docker-php
 ## 构建镜像
 
 ```bash
-docker build --build-arg ENVIRONMENT=production -t edk24/docker-php:8.1.17 .
+# 构建镜像
+$ docker build --build-arg ENVIRONMENT=production -t edk24/docker-php:8.1.17 .
+
+# 使用 buildx 构建多平台镜像并推送
+$ docker buildx build --build-arg ENVIRONMENT=production -t edk24/docker-php:8.1.17 --platform linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/386 --push .
 ```
 
 ### 构建参数 (ARG)

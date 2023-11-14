@@ -1,8 +1,4 @@
-FROM composer/composer:2.2.9 as composer
-
 FROM php:8.1.17-fpm-alpine
-
-COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # 环境: production | development
 ARG ENVIRONMENT=production
@@ -10,12 +6,11 @@ ARG ENVIRONMENT=production
 ENV TIME_ZONE=Asia/Shanghai
 ENV BUILD_DEPS='autoconf gcc g++ make bash'
 
-
-# 默认启动命令
+# DockerEntrypoint
 COPY docker/docker-entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh && mkdir -p /var/html/logs
 
-# php-fpm conf
+# Copy php-fpm conf
 COPY docker/conf/php/php-fpm.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
 # php.ini
@@ -55,7 +50,13 @@ RUN if [ "$ENVIRONMENT" = "development" ]; then \
     && docker-php-ext-enable xdebug \
     && echo -e "\n[XDebug]\nxdebug.mode = debug\nxdebug.start_with_request = yes\nxdebug.client_port = 9003\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini ; fi
 
+# Install composer
+RUN curl -o /usr/local/bin/composer https://mirrors.cloud.tencent.com/composer/composer.phar \
+    && chmod +x /usr/local/bin/composer \
+    && /usr/local/bin/composer config -g repo.packagist composer https://mirrors.cloud.tencent.com/composer/ \
+    && mkdir -p /.composer
 
+# Copy nginx config
 COPY docker/conf/nginx/nginx.conf /etc/nginx/nginx.conf
 
 WORKDIR /app
