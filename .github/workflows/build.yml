@@ -7,6 +7,7 @@ on:
 
 env:
   DOCKERHUB_REPO: edk24/docker-php
+  ENVIRONMENT: production
 
 jobs:
   docker:
@@ -36,14 +37,14 @@ jobs:
         with:
           context: .
           platforms: |
+            linux/386
             linux/amd64
             linux/arm/v6
             linux/arm/v7
             linux/arm64/v8
           push: true
           build-args: |
-            APP_NAME=${{ env.APP_NAME }}
-            APP_VERSION=${{ env.APP_VERSION }}
+            ENVIRONMENT=${{ env.ENVIRONMENT }}
           tags: |
             ${{ env.DOCKERHUB_REPO }}:latest
             ${{ env.DOCKERHUB_REPO }}:${{ env.APP_VERSION }}

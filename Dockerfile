@@ -15,7 +15,6 @@ COPY docker/conf/php/php-fpm.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
 # php.ini
 COPY docker/conf/php/php.ini /usr/local/etc/php/php.ini
-# COPY docker/conf/php/php.ini /usr/local/etc/php/php.ini-development
 
 # Tencent mirrors
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g' /etc/apk/repositories
@@ -44,11 +43,11 @@ RUN pecl channel-update pecl.php.net \
     && pecl install redis \
     && docker-php-ext-enable redis gd zip pcntl bcmath pdo_mysql
 
-# Install xdebug-2.9.0
-# RUN if [ "$ENVIRONMENT" = "development" ]; then \
-#     pecl install xdebug-3.1.4 \
-#     && docker-php-ext-enable xdebug \
-#     && echo -e "\n[XDebug]\nxdebug.mode = debug\nxdebug.start_with_request = yes\nxdebug.client_port = 9003\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini ; fi
+# Install xdebug-3.1.4
+RUN if [ "$ENVIRONMENT" = "development" ]; then \
+    pecl install xdebug-3.1.4 \
+    && docker-php-ext-enable xdebug \
+    && echo -e "\n[XDebug]\nxdebug.mode = debug\nxdebug.start_with_request = yes\nxdebug.client_port = 9003\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini ; fi
 
 # Install composer
 RUN curl -o /usr/local/bin/composer https://mirrors.cloud.tencent.com/composer/composer.phar \

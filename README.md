@@ -8,6 +8,7 @@
 - php 版本: 8.1.17
 - xdebug 版本: 3.1.4 (可选)
 - composer 版本: 2.2.9
+- composer 与 apk 使用腾讯镜像源
 
 > ⚠️提示: 由于使用了新版特性，多个 `FROM`，仅支持 docker 17.05 后的版本
 
