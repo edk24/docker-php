@@ -45,6 +45,6 @@ jobs:
           push: true
           build-args: |
             ENVIRONMENT=${{ env.ENVIRONMENT }}
-          tags: ${{ env.DOCKERHUB_REPO }}:${{ env.APP_VERSION }}
+          tags: ${{ env.DOCKERHUB_REPO }}:8.17.25
 
 
