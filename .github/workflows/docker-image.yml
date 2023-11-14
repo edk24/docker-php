@@ -43,8 +43,8 @@ jobs:
           build-args: |
             ENVIRONMENT=production
           tags: |
-            ${{ env.DOCKERHUB_REPO }}:latest
-            ${{ env.DOCKERHUB_REPO }}:${{ env.APP_VERSION }}
+            edk24/docker-php:latest
+            edk24/docker-php:${{ env.APP_VERSION }}
           push: true
 
 
