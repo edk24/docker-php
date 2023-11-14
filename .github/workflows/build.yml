@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - "*"
+    branches:
+      - "main"
 
 env:
   DOCKERHUB_REPO: edk24/docker-php
@@ -35,7 +37,8 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./${{env.APP_VERSION}}
+          context: .
+          file: ./${{ env.APP_VERSION }}/Dockerfile
           platforms: |
             linux/amd64
             linux/arm/v6
@@ -45,4 +48,4 @@ jobs:
           build-args: |
             ENVIRONMENT=${{ env.ENVIRONMENT }}
           tags: |
-            ${{ env.DOCKERHUB_REPO }}:${{ env.APP_VERSION }}
+            ${{ env.DOCKERHUB_REPO }}:latest
