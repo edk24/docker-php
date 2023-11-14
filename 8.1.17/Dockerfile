@@ -38,8 +38,7 @@ RUN apk --no-cache add libpng autoconf g++ libxml2-dev make git libpng-dev libjp
     opcache \
     && rm -rf /var/cache/apk/*
 
-# Copy nginx config
-COPY docker/conf/nginx/nginx.conf /etc/nginx/nginx.conf
+
 
 # Install redis for php
 RUN pecl channel-update pecl.php.net \
@@ -58,6 +57,8 @@ RUN curl -o /usr/local/bin/composer https://mirrors.cloud.tencent.com/composer/c
     && /usr/local/bin/composer config -g repo.packagist composer https://mirrors.cloud.tencent.com/composer/ \
     && mkdir -p /.composer
 
+# Copy nginx config
+COPY docker/conf/nginx/nginx.conf /etc/nginx/nginx.conf
 
 WORKDIR /app
 
