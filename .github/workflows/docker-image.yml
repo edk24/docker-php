@@ -22,17 +22,15 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Get version
-        id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - 
+        name: Generate App Version
+        run: echo APP_VERSION=`git describe --tags --always` >> $GITHUB_ENV
       -
         name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           context: .
-          push: true
-          tags: edk24/docker-php:${{ steps.get_version.outputs.VERSION }}
           platform: |
             linux/386
             linux/amd64
@@ -43,5 +41,10 @@ jobs:
             linux/ppc64le
             linux/s390x
           build-args: |
-            ENVIRONMENT: production
+            ENVIRONMENT=production
+          tags: |
+            ${{ env.DOCKERHUB_REPO }}:latest
+            ${{ env.DOCKERHUB_REPO }}:${{ env.APP_VERSION }}
+          push: true
+
 
