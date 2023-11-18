@@ -1,4 +1,4 @@
-FROM php:8.1.17-fpm-alpine
+FROM php:7.4-fpm-alpine3.16
 
 # 环境: production | development
 ARG ENVIRONMENT=production
@@ -45,11 +45,12 @@ RUN pecl channel-update pecl.php.net \
     && pecl install redis \
     && docker-php-ext-enable redis gd zip pcntl bcmath pdo_mysql
 
-# Install xdebug-3.1.4
+
+# Install xdebug-2.9.0
 RUN if [ "$ENVIRONMENT" = "development" ]; then \
-    pecl install xdebug-3.1.4 \
+    pecl install xdebug-2.9.0 \
     && docker-php-ext-enable xdebug \
-    && echo -e "\n[XDebug]\nxdebug.mode = debug\nxdebug.start_with_request = yes\nxdebug.client_port = 9003\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini ; fi
+    && echo -e "\n[XDebug]\nxdebug.remote_enable = 1\nxdebug.remote_autostart = 1\nxdebug.remote_port = 9003\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini ; fi
 
 # Install composer
 RUN curl -o /usr/local/bin/composer https://mirrors.cloud.tencent.com/composer/composer.phar \
