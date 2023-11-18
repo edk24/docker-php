@@ -4,13 +4,10 @@
 
 此镜像使用 `php:x.x.x-alpine` 作为基础镜像封装，操作系统为 `alpine`，且已安装 `nginx`。
 
-- nginx 版本: 1.22.1
-- php 版本: 8.1.17
-- xdebug 版本: 3.1.4 (可选)
-- composer 版本: 2.2.9
-- composer 与 apk 使用腾讯镜像源
-
-> ⚠️提示: 由于使用了新版特性，多个 `FROM`，仅支持 docker 17.05 后的版本
+- nginx
+- php
+- xdebug (dev版本携带, 端口9003)
+- composer 2.2.9 (腾讯源)
 
 ## 路径说明
 
@@ -25,7 +22,9 @@
 docker pull edk24/docker-php
 ```
 
-## 构建镜像
+## 自行构建镜像
+
+[github仓库](https://github.com/edk24/docker-php)
 
 ```bash
 # 构建镜像
