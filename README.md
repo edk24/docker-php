@@ -43,7 +43,7 @@ $ docker buildx build --build-arg ENVIRONMENT=production -t edk24/docker-php:8.1
 ## 快速运行
 
 ```bash
-docker run --rm -it -v $(pwd):/app -w /app -p 3009:80 edk24/docker-php:8.1.17
+docker run --rm -it -v $(pwd):/app -w /app -p 3009:80 edk24/docker-php:8.1
 ```
 
 访问: [http://localhost:3009](http://localhost:3009)
