@@ -38,14 +38,8 @@ RUN apk --no-cache add libpng autoconf g++ libxml2-dev make git libpng-dev libjp
     simplexml \
     xml \
     opcache \
-    && rm -rf /var/cache/apk/*
-
-
-
-# Install redis for php
-RUN pecl channel-update pecl.php.net \
-    && pecl install redis \
-    && docker-php-ext-enable redis gd zip pcntl bcmath pdo_mysql
+    && rm -rf /var/cache/apk/* \ 
+    && docker-php-ext-enable gd zip pcntl bcmath pdo_mysql
 
 
 # Install xdebug-2.9.0
