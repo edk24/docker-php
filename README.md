@@ -25,6 +25,7 @@ docker pull edk24/docker-php
 ## 自行构建镜像
 
 [github仓库](https://github.com/edk24/docker-php)
+[buildx安装与常见问题](https://blog.csdn.net/u014110320/article/details/124406628)
 
 ```bash
 # 构建镜像
