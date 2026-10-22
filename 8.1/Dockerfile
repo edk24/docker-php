@@ -31,7 +31,7 @@ RUN apk --no-cache add libpng autoconf g++ libxml2-dev make git libpng-dev libjp
     zip \
     pcntl \
     bcmath \
-    pdo_mysql \ 
+    pdo_mysql \
     fileinfo \
     simplexml \
     xml \
@@ -41,8 +41,8 @@ RUN apk --no-cache add libpng autoconf g++ libxml2-dev make git libpng-dev libjp
 
 
 # Install redis for php
-RUN pecl channel-update pecl.php.net \
-    && pecl install redis \
+# 注: 8.1 自带 PEAR 1.10.13 无法解析当前 pecl.php.net channel.xml (XML Error), channel 已随镜像内置, 故跳过 channel-update
+RUN pecl install redis \
     && docker-php-ext-enable redis gd zip pcntl bcmath pdo_mysql
 
 # Install xdebug-3.1.4

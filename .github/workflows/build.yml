@@ -35,14 +35,14 @@ jobs:
       #   run: echo APP_VERSION=`git describe --tags --always` >> $GITHUB_ENV
       -
         name: Build Target
-        working-directory: ./8.1.17
+        working-directory: ./8.3
         run: ls ./
       -
         name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./8.1.17/Dockerfile
+          context: ./8.3
+          file: ./8.3/Dockerfile
           platforms: |
             linux/amd64
             linux/arm/v6
@@ -52,4 +52,5 @@ jobs:
           build-args: |
             ENVIRONMENT=${{ env.ENVIRONMENT }}
           tags: |
+            ${{ env.DOCKERHUB_REPO }}:8.3
             ${{ env.DOCKERHUB_REPO }}:latest
